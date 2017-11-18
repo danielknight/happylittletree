@@ -1,0 +1,25 @@
+{% extends 'bobross/base.html' %}
+{% block title %}User Art{% endblock %}
+{% block extra_head %}
+     {% load static %}
+        <link rel="stylesheet" href="{% static 'media/bobross/css/episode_list.css' %}">
+{% endblock %}
+{% block content %}
+<div id="gallery" class="gallery">
+    <ul class="img-list list">
+    {% for p in artwork%}
+        <li>
+            <a href="/user-art/{{ p.id }}/" class="inner">
+                <div class="li-img">
+                    <img src = "{{MEDIA_URL}}{{ p.painting.name}}" alt="User Painting"/>
+                </div>
+                <div class="li-text">
+                    <h4 class="li-head">{{  p.owner.name }}</h4>
+                    <p class="li-sub"></p>
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

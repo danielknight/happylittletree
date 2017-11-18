@@ -1,0 +1,19 @@
+{% extends 'bobross/base.html' %}
+{% block title %}About{% endblock %}
+{% block extra_head %}
+     {% load static %}
+        <link rel="stylesheet" href="{% static 'media/bobross/css/episode_list.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="episode_list" class="episode-list">
+        <h1>Using this Site</h1>
+        <p>This site is a directory of Bob Ross's Joy of Painting episodes, presented in episode order. Users can use the amazon links to purchase the paints necessary to follow along with Bob and discover the joy of oil painting. Users can also upload their artwork, after following along with Bob.</p>
+        <h1>Data</h1>
+        <p>If you would like to download a 1.6 million word corpus of Bob Ross's speech for use in a research project of your own, please use the cleaned corpus file below.
+        </p>
+        <a Corpus href="https://s3-us-west-2.amazonaws.com/happylittletree.info/RossCorpusCleaned.txt" download a>
+            <h4 class="li-head">Download Corpus</h4>
+        </a>
+        <p>The corpus was written with 1 word per line. Windows users may not be able to view the corpus properly.</p>
+    </div>
+{% endblock %}

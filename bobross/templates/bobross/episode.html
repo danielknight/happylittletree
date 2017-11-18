@@ -1,0 +1,51 @@
+{% extends 'bobross/base.html' %}
+{% block title %}Episode Detail{% endblock %}
+{% block extra_head %}
+{% endblock %}
+{% block content %}
+  <div class="jumbotron">
+    <h1><a href="{{ episode.link }}">{{ episode.title }}</a></h1>
+    <iframe width="420" height="315"
+        src={{ episode.yt_link }}>
+    </iframe>
+  </div>
+
+  <div class="row marketing">
+    <div class="col-lg-12">
+        <h2>Paints for this Episode</h2>
+    <div>
+        <ul>
+            {% for paint in episode.paints.all %}
+                <li><a href="{{ paint.amazon_link }}">{{ paint.color }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+    <div class="col-lg-6">
+        <h2>Word Cloud</h2>
+        {% load static %}
+        <img src="{% static episode.wordcloud.url %}" alt="Word Cloud" style="width:304px;height:228px;"/>
+    </div>
+
+    <div class="col-lg-6">
+        <h2>Upload To The Gallery</h2>
+        <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <p>
+            {{ form.painting }}
+        </p>
+        <input type="submit" value="Submit" />
+        </form>
+    </div>
+    <div class="col-lg-12"
+    <h2>User Photos and Paintings</h2>
+    <div>
+        <ul>
+            {% for p in episode.epi_paintings.all %}
+                <li>
+                    <img src = "{{MEDIA_URL}}{{ p.painting.name}}" alt="User Painting"/>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+{% endblock %}

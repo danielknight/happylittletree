@@ -1,0 +1,10 @@
+beautifulsoup4==4.6.0
+bs4==0.0.1
+dj-database-url==0.4.2
+Django==1.11.2
+djangorestframework==3.6.3
+olefile==0.44
+Pillow==4.1.1
+psycopg2==2.6.2
+pytz==2017.2
+regex==2017.6.23

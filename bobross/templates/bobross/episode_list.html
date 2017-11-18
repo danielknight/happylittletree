@@ -1,0 +1,26 @@
+{% extends 'bobross/base.html' %}
+{% block title %}Episode List{% endblock %}
+{% block extra_head %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'media/bobross/css/episode_list.css' %}">
+{% endblock %}
+{% block content %}
+        <div id="episode_list" class="episode-list">
+            <ul class="img-list list">
+            {% for episode in episode_list%}
+                <li>
+                    <a href="/episode/{{ episode.id }}/" class="inner">
+                        <div class="li-img">
+                            {% load static %}
+                            <img src= "{% static episode.painting.url %}" />
+                        </div>
+                        <div class="li-text">
+                            <h4 class="li-head">{{  episode.title }}</h4>
+                            <p class="li-sub"></p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
