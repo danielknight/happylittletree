@@ -4,12 +4,12 @@ import regex as re
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from bobross.models import Episode, Paints
+from bobross.models import Paints
 
 
 class Command(BaseCommand):
     # args = '<foo bar ...>'
-    help = 'Use this to populate the db'
+    help = 'Use this to update paint links for amzn to https'
 
     paints_dict = {
         'Phthalo Blue': ['https://amzn.to/2tV2Iee',
@@ -69,102 +69,18 @@ class Command(BaseCommand):
 
     paints_dict_upper = {key.upper(): value for key, value in paints_dict.items()}
 
-    def create_paints(self):
-        for key, val in self.paints_dict.items():
-            p, created = Paints.objects.get_or_create(color=key.upper(), amazon_link=val[0], amazon_html=val[1])
-            if created:
-                print("Created ", key)
-            else:
-                print(key, " already in models")
-        return 0
+    def update_paints(self):
+        p = Paints.object.all()
+        for p1 in p:
+            s = p1.amazon_link
+            s1 = list(s[:4])
+            s2 = list(s[4:])
+            p1.amazon_link = ''.join(s1 + ['s'] + s2)
+            p1.save()
 
-    def get_yt_thumb(self, video_id):
-        mq_thumb = "https://img.youtube.com/vi/" +  video_id + "/mqdefault.jpg"
-        return mq_thumb
 
-    def get_yt_link(self, vid_id):
-        return "https://youtube.com/embed/" + vid_id
 
-    def read_data_file(self, episode_path ):
-        data_file_path = os.path.join(episode_path, 'data.txt')
-        with open(data_file_path, 'r') as f:
-            season_num = f.readline()[:-1]
-            epi_num = f.readline()[:-1]
-            vid_id = f.readline()[:-1]
-        return season_num, epi_num, vid_id
-
-    def get_title_season_episode(self, episode_dir):
-        m = re.match(r"Bob Ross - (?P<title>[^\(]*)\(Season (?P<season>[0-9]+) Episode (?P<episode>[0-9]+)\)", episode_dir)
-        return m.group('title')[:-1], m.group('season'), m.group('episode')
-
-    def get_transcript(self, episode_dir, episode_name):
-        transcript_path = os.path.join(episode_dir, episode_name+'.txt')
-        with open(transcript_path, 'r') as f:
-            text = ' '.join(f.readlines())
-        return text
-
-    def get_transcript_file(self, episode_dir, episode_name):
-        transcript_path = os.path.join('bobross', 'media', 'transcripts', episode_name+'.txt')
-        return transcript_path
-
-    def get_cloud(self, episode_dir, episode_name, cloud_dir='bobross/media/wordclouds/'):
-        cloud = os.path.join('bobross', 'media','wordclouds', episode_name + ".png")
-        return cloud
-
-    def get_paints(self, episode_dir):
-        paints_path = os.path.join(episode_dir, "paint.txt")
-        paint_info = {}
-        with open(paints_path, 'r') as f:
-            paints = f.readlines()
-            paints = [p[:-1] for p in paints]
-        for paint in paints:
-            if paint in self.paints_dict_upper.keys():
-                short_link = self.paints_dict_upper[paint][0]
-                html_link = self.paints_dict_upper[paint][1]
-                p = Paints.objects.get_or_create(
-                    color=paint,
-                    amazon_link=short_link,
-                    amazon_html=html_link
-                )
-                paint_info[paint] = [short_link, html_link]
-            else:
-                print("Paint not found: ", paint)
-        return paint_info
-
-    def get_painting(self, epi_path, season, num):
-        painting = os.path.join('bobross', 'media',
-                                'finished_paintings', "painting" + season + "-" + num + ".jpg")
-        return painting
-
-    def _create_episode(self):
-        #walk through data folder for each episode
-        data_path = os.path.join(settings.PROJECT_PATH, 'bobross', 'data')
-        for root, dirs, files in os.walk(data_path):
-            #once inside of an epi directory, set episode fields
-            for dirname in dirs:
-                if dirname.startswith('Bob Ross -'): # we are at an episode directory
-                    epi_path = os.path.join(root, dirname)
-                    season_num, episode, vid_id = self.read_data_file(epi_path)
-                    title, season, episode_num = self.get_title_season_episode(dirname)
-                    print(dirname)
-                    epi = Episode(title=title)
-                    epi.episode_number = episode_num # get from filename
-                    epi.season = season  # get from filename
-                    epi.yt_link = self.get_yt_link(vid_id) #get from vid id
-                    epi.wordcloud = self.get_cloud(epi_path, dirname)#get from directory
-                    epi.transcript = self.get_transcript(epi_path, dirname)#get from directory
-                    epi.transcript_file = self.get_transcript_file(epi_path, dirname)#serve as static file
-                    epi.thumbnail = self.get_yt_thumb(vid_id) #get from yt id
-                    epi.painting = self.get_painting(epi_path, season, episode_num)
-                    epi.save()
-                    for paint, links in self.get_paints(epi_path).items():
-                        p, created = Paints.objects.get_or_create(color=paint, amazon_link=links[0], amazon_html=links[1])
-                        if created:
-                            p.save()
-                        epi.paints.add(p)
-
-    def handle(self, *args, **options):
-        self.create_paints()
-        #FIX create manytomany
-        self._create_episode()
+def handle(self, *args, **options):
+    self.update_paints()
+    # FIX create manytomany
 

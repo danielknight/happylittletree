@@ -16,7 +16,7 @@
     <div>
         <ul>
             {% for paint in episode.paints.all %}
-                <li><a href="{{ paint.amazon_link }}">{{ paint.color }}</a></li>
+                <li><a target="_blank" href="{{ paint.amazon_link }}">{{ paint.color }}</a></li>
             {% endfor %}
         </ul>
     </div>
