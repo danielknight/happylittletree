@@ -173,6 +173,6 @@ ENV/
 *.pyc
 staticfiles
 venv
-bobross/static/
+# bobross/static/
 bobross/data/
 ross_web/settings/local.py
