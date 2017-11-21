@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^', include('bobross.urls')),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
+    url(r'^\.well-known/', include('letsencrypt.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
