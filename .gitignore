@@ -175,3 +175,4 @@ staticfiles
 venv
 bobross/static/
 bobross/data/
+ross_web/settings/local.py
