@@ -26,7 +26,7 @@ urlpatterns = [
                                namespace='rest_framework')),
     url(r'^\.well-known/', include('letsencrypt.urls')),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.production.MEDIA_URL, document_root=settings.production.MEDIA_ROOT)
 
 
 
