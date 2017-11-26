@@ -25,7 +25,7 @@
         <h2>Word Cloud</h2>
         {% load static %}
         {% autoescape off %}
-        <img src="{% static episode.wordcloud.url %}" alt="Word Cloud" style="width:304px;height:228px;"/>
+        <img src="{% static episode.wordcloud.url|urlencode:"()%/" %}" alt="Word Cloud" style="width:304px;height:228px;"/>
         {% endautoescape %}
     </div>
 
