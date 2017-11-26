@@ -42,7 +42,7 @@
         <ul>
             {% for p in episode.epi_paintings.all %}
                 <li>
-                    <img src = "{{ p.painting.url }}" alt="User Painting"/>
+                    <img src = "{{ MEDIA_URL }}{{ p.painting.name }}" alt="User Painting"/>
                 </li>
             {% endfor %}
         </ul>
