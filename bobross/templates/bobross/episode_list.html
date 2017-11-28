@@ -2,7 +2,7 @@
 {% block title %}Episode List{% endblock %}
 {% block extra_head %}
         {% load static %}
-        <link rel="stylesheet" href="{% static 'media/bobross/css/episode_list.css' %}">
+        <link rel="stylesheet" href="{% static 'bobross/css/episode_list.css' %}">
 {% endblock %}
 {% block content %}
         <div id="episode_list" class="episode-list">
@@ -12,7 +12,7 @@
                     <a href="/episode/{{ episode.id }}/" class="inner">
                         <div class="li-img">
                             {% load static %}
-                            <img src= "{% static episode.painting.url %}" />
+                            <img src= "{% static episode.painting.name %}" />
                         </div>
                         <div class="li-text">
                             <h4 class="li-head">{{  episode.title }}</h4>
