@@ -2,12 +2,20 @@
 {% block title %}User Art{% endblock %}
 {% block extra_head %}
      {% load static %}
-        <link rel="stylesheet" href="{% static 'bobross/css/episode_list.css' %}">
+        <link rel="stylesheet" href="{% static 'bobross/css/gallery.css' %}">
 {% endblock %}
 {% block content %}
-<div id="gallery" class="gallery">
-    <ul class="img-list list">
-    {% for p in artwork%}
+<div class="container-fluid">
+    <h1>Gallery</h1>
+    <div id="images">
+    {% for p in artwork %}
+        <div class="item">
+            <img src = "{{ MEDIA_URL }}{{ p.painting.name }}" alt=""/>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+<!--<div id="gallery" class="gallery">
         <li>
             <a href="/user-art/{{ p.id }}/" class="inner">
                 <div class="li-img">
@@ -19,7 +27,7 @@
                 </div>
             </a>
         </li>
-    {% endfor %}
     </ul>
 </div>
+--!>
 {% endblock %}

@@ -19,9 +19,6 @@ from bobross.forms import UserArtForm
 
 # Create your views here.
 
-
-
-
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
