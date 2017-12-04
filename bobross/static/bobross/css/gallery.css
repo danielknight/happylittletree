@@ -10,6 +10,9 @@
     width: 200px;
     float: left;
 }
+.row{
+  margin-bottom: 15px;
+}
 .item img {
     display: block;
     width: 100%;

@@ -1,6 +1,8 @@
 {% extends 'bobross/base.html' %}
 {% block title %}Episode Detail{% endblock %}
 {% block extra_head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
     {% load static %}
         <link rel="stylesheet" href="{% static 'bobross/css/episode-detail.css' %}">
 {% endblock %}
@@ -45,18 +47,31 @@
         </form>
     </div>
   </div>
-<div class="container">
+<div class="container-fluid">
     <h1>Gallery</h1>
-<div id="container"></div>
-<div id="images">
-
-    {% for p in episode.epi_paintings.all %}
-        <div class="item">
-            <img src = "{{ MEDIA_URL }}{{ p.painting.name }}" alt=""/>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+        <div class="row">
+        {% for p in episode.epi_paintings.all %}
+            <a href="{{ MEDIA_URL }}{{ p.painting.name }}" data-max-width="800" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
+            <img src="{{ MEDIA_URL }}{{ p.painting.name }}" class="img-responsive">
+            </a>
+            {% if forloop.counter|divisibleby:3 %}
         </div>
-    {% endfor %}
+        <div class="row">
+            {% endif %}
+        {% endfor %}
+        </div>
+        </div>
 </div>
 </div>
 </div>
-</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+    });
+});
+</script>
 {% endblock %}

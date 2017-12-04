@@ -2,7 +2,7 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  background: #417690;
+
 }
 
 col-md-6 {
@@ -36,9 +36,7 @@ iframe{
 button {
     font-size: 18px;
 }
-.container{
-    width:100%;
-}
+
 
 
 /* Custom page header */
@@ -52,11 +50,11 @@ button {
   margin-bottom: 0;
   line-height: 40px;
 }
-h2 {
+/*h2 {
     padding-top: 0;
   margin-top: 0;
   margin-bottom: 0;
-}
+}*/
 
 /* Custom page footer */
 .footer {
@@ -111,4 +109,8 @@ h2 {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.row {
+    margin-bottom: 25px;
 }
