@@ -12,20 +12,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
+from ross_web.settings.secret_settings import *
+from ross_web.settings.prod_secret_settings import *
+from ross_web.settings.aws_secret_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = os.environ.get('SECRET_KEY', 'SOME+RANDOM+KEY(z9+3vnm(jb0u@&w68t#5_e8s9-lbfhv-')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-ADMINS = [('DK', 'goodknightdk@gmail.com')]
-SERVER_EMAIL = 'django@happy-little-tree.herokuapp.com'
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -82,19 +74,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ross_web.wsgi.application'
 
 
-# Database
+# Database   Fill in your own DB info
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bobross2',
-        'USER': 'postgres',
-        'PASSWORD': 'dankydoodle420',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-}
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
@@ -106,7 +88,6 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 # s3 storage settings
-AWS_STORAGE_BUCKET_NAME = 'happy-little-files'
 AWS_S3_REGION_NAME = 'us-west-2'  # e.g. us-east-2
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')

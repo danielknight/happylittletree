@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from ross_web.settings.secret_settings import *
 import dj_database_url
+
+# Certain settings have been hidden for security
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,8 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i$s&t6(-e*$q+^sn4(5@*w%ooosnw(rglo8acl&@782$^n&e*b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,23 +77,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ross_web.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bobross2',
-        'USER': 'postgres',
-        'PASSWORD': 'dankydoodle420',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-}
 
 #ENV_PATH = os.path.abspath('C:/Users/Danny/PycharmProjects/ross_web/')
 #ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-#print(ENV_PATH, "******")
 #MEDIA_ROOT = os.path.join(ENV_PATH)
 STATIC_URL = '/static/'
 #MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'bobross/media/')
@@ -101,11 +89,7 @@ STATIC_URL = '/static/'
 PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
 
 
-# s3 storage settings
 AWS_STORAGE_BUCKET_NAME = 'happy-little-files'
-AWS_S3_REGION_NAME = 'us-west-2'  # e.g. us-east-2
-AWS_ACCESS_KEY_ID = 'AKIAJMEKGETYD7JIAHIA'
-AWS_SECRET_ACCESS_KEY = 'iQGQv1TRxdu2IP+EcohVAqGK7lteX9zKqMSuJgmq'
 
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
@@ -122,6 +106,7 @@ STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 print("base------------")
+
 #SSL
 CORS_REPLACE_HTTPS_REFERER      = False
 HOST_SCHEME                     = "http://"
