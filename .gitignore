@@ -176,3 +176,6 @@ venv
 # bobross/static/
 bobross/data/
 ross_web/settings/local.py
+ross_web/settings/secret_settings.py
+ross_web/settings/prod_secret_settings.py
+ross_web/settings/aws_secret_settings.py
